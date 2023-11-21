@@ -1,0 +1,20 @@
+version: "3.5"
+networks:
+  default:
+    name: developchain
+
+services:
+  l1chain:
+    image: ethereum/client-go
+    ports:
+      - "8545:8545"
+    tty: true
+    volumes:
+      - ./l1chain/data:/data
+    command:
+      - --http
+      - --http.addr=0.0.0.0
+      - --http.api
+      - --http.corsdomain='*'
+      - --datadir=/data
+      - --http.api='web3,eth,net,debug,personal'"
