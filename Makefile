@@ -1,6 +1,6 @@
 CURRENTPATH :=$(shell pwd)
 DATAPATH :=$(CURRENTPATH)/l1chain/data
-GENESISPATH :=genesis.json
+GENESISPATH := DATAPATH/genesis.json
 
 ifneq ($(shell [ -d ${DATAPATH} ] && echo "true"),true)
 $(shell mkdir -p $(DATAPATH))
