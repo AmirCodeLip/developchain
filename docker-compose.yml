@@ -18,3 +18,4 @@ services:
       - --http.corsdomain='*'
       - --datadir=/data
       - --http.api='web3,eth,net,debug,personal'"
+      - --unlock 0x7dd17e8a1D7C69baB85F04F12A22d0866F8DfA5F --mine
