@@ -13,11 +13,12 @@ endif
 ifneq ($(shell [ -d ${IPFSNODE1PATH} ] && echo "true"),true)
 $(shell mkdir -p $(IPFSNODE1PATH))
 endif
-echo $(IPFSNODE1PATH)
-.PHONY: init
+.PHONY: install
 install:
 		$(shell docker pull ipfs/kubo)
+.PHONY: init
 init:
+		echo $(IPFSNODE1PATH)
 		$(shell $(INITCMD))
 		$(shell $(INITIPFSCMD))
 		$(shell echo -e "/key/swarm/psk/1.0.0/\n/base16/\n`tr -dc 'a-f0-9' < /dev/urandom | head -c64`" > $(IPFSNODE1PATH))
