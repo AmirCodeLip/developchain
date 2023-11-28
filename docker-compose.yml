@@ -11,11 +11,17 @@ services:
     tty: true
     volumes:
       - ./l1chain/data:/data
+      - ./l1chain/passwordfile:/passwordfile
     command:
       - --http
       - --http.addr=0.0.0.0
       - --http.api
       - --http.corsdomain='*'
       - --datadir=/data
-      - --http.api='web3,eth,net,debug,personal'"
-      - --unlock 0x7dd17e8a1D7C69baB85F04F12A22d0866F8DfA5F --mine
+      - --http.api='web3,eth,net,debug,personal'
+      - --allow-insecure-unlock
+      - --unlock=0x7dd17e8a1D7C69baB85F04F12A22d0866F8DfA5F
+      - --mine
+      - --password=/passwordfile
+      - --miner.etherbase=0x7dd17e8a1D7C69baB85F04F12A22d0866F8DfA5F
+      
