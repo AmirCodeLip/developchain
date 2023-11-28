@@ -17,6 +17,6 @@ install:
 		$(shell docker pull ipfs/kubo)
 .PHONY: init
 init:
-		$(shell $(NODE1IPFSCMD))
+		$(shell $(INITCMD))
 		$(shell $(NODE1IPFSCMD))
 
