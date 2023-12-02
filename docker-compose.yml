@@ -27,7 +27,12 @@ services:
   node1_ipfs:
     container_name: node1_ipfs
     image: ipfs/kubo
+    ports:
+      - "4001:4001" # ipfs swarm - expose if needed/
+      - "5001:5001" # ipfs api - expose if needed/wanted
+      - "8080:8080" # ipfs gateway - expose if needed/wanted
     volumes:
       - ./ipfs/node1/ipfs_staging:/export
       - ./ipfs/node1/ipfs_data:/data/ipfs
-    environment: IPFS_SWARM_KEY_FILE=./swarm.key
+    environment:
+      - IPFS_SWARM_KEY_FILE=/data/swarm.key
