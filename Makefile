@@ -1,16 +1,23 @@
 CURRENTPATH :=$(shell pwd)
+#static paths
+ACCOUNTFILE:=UTC--2023-12-05T06-45-42.679945500Z--039cc1e608f481a8349f8a4c7b4dfcabc2b453b9
+
+#node eth variables
 DATAPATH :=$(CURRENTPATH)/l1chain/data
-IPFSNODE1PATH=$(CURRENTPATH)/ipfs/node1
 GENESISPATH :=$(CURRENTPATH)/genesis.json
+KEYSTOREPATH:=$(DATAPATH)/keystore
+
+IPFSNODE1PATH=$(CURRENTPATH)/ipfs/node1
+STATICDATAPATH:=$(CURRENTPATH)/static_data
 SWARMPATH=$(CURRENTPATH)/swarm.key
+
 INITCMD :=docker run -v $(DATAPATH):/data -v $(GENESISPATH):/genesis.json
 INITCMD +=ethereum/client-go init --datadir /data /genesis.json
-NODE1IPFSCMD :=docker run -d --name node1_ipfs -e IPFS_SWARM_KEY_FILE=$(CURRENTPATH)/swarm.key  -v $(IPFSNODE1PATH)/ipfs_staging:/export -v $(IPFSNODE1PATH)/ipfs_data:/data/ipfs
-NODE1IPFSCMD+= ipfs/kubo init
+
 ifneq ($(shell [ -d ${DATAPATH} ] && echo "true"),true)
 $(shell mkdir -p $(DATAPATH))
-$(shell mkdir $(DATAPATH)/l1chain)
-$(shell cp $(CURRENTPATH)/l1chain/keystore $(CURRENTPATH)/l1chain/data/keystore)
+$(shell mkdir $(DATAPATH))
+$(shell mkdir $(DATAPATH)/keystore)
 endif
 .PHONY: install
 install:
@@ -18,5 +25,7 @@ install:
 .PHONY: init
 init:
 		$(shell $(INITCMD))
-		$(shell $(NODE1IPFSCMD))
-
+.PHONY: copy
+copy:
+		$(shell cp $(STATICDATAPATH)/$(ACCOUNTFILE) $(KEYSTOREPATH)/$(ACCOUNTFILE))
+		$(shell cp $(STATICDATAPATH)/passwordfile $(DATAPATH)/passwordfile)
