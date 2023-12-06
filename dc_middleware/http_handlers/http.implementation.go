@@ -39,6 +39,7 @@ func (hd *HandlerData) Upload() func(w http.ResponseWriter, r *http.Request) {
 
 func (hd *HandlerData) Pin() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+
 		if isMultipartJson(r.Header) {
 			strData, _ := io.ReadAll(r.Body)
 			fmt.Println(string(strData))

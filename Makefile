@@ -16,8 +16,7 @@ INITCMD +=ethereum/client-go init --datadir /data /genesis.json
 
 ifneq ($(shell [ -d ${DATAPATH} ] && echo "true"),true)
 $(shell mkdir -p $(DATAPATH))
-$(shell mkdir $(DATAPATH))
-$(shell mkdir $(DATAPATH)/keystore)
+$(shell mkdir -p $(KEYSTOREPATH))
 endif
 .PHONY: install
 install:
