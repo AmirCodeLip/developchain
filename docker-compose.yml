@@ -21,14 +21,15 @@ services:
       - --datadir=/data
       - --http.api=web3,eth,net,debug,personal
       - --allow-insecure-unlock
-      - --unlock=0x7dd17e8a1D7C69baB85F04F12A22d0866F8DfA5F
+      - --unlock=0x039cC1E608f481a8349f8a4c7B4DfCAbc2b453b9
       - --mine
       - --ws.addr=0.0.0.0
       - --ws
       - --ws.api=eth,net,web3
       - --ws.port=3334
       - --password=/passwordfile
-      - --miner.etherbase=0x7dd17e8a1D7C69baB85F04F12A22d0866F8DfA5F
+      - --miner.etherbase=0x039cC1E608f481a8349f8a4c7B4DfCAbc2b453b9
+
   node1_ipfs:
     container_name: node1_ipfs
     image: ipfs/kubo
