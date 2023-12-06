@@ -3,10 +3,11 @@ package main
 import (
 	"dc_middleware/http_handlers"
 	"dc_middleware/ipfs_connector"
-	"github.com/gorilla/handlers"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
 )
 
 func main() {
@@ -20,10 +21,5 @@ func main() {
 	r.HandleFunc("/pin", api.Pin())
 	http.Handle("/", r)
 
-	http.ListenAndServe(":8090", r)
-
 	log.Fatal(http.ListenAndServe(":8090", handlers.CORS(header, methods, origins)(r)))
-	//if err != nil {
-	//	fmt.Println(err)
-	//}
 }
