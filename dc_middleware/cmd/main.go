@@ -3,7 +3,6 @@ package main
 import (
 	"dc_middleware/http_handlers"
 	"dc_middleware/ipfs_connector"
-	"fmt"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"log"
@@ -15,7 +14,7 @@ func checkFileUpload(apiData *http_handlers.HandlerData) {
 	//contractLogic := x7opsilon_client.NewContractLogic("http://168.119.58.0:8545")
 	for {
 		time.Sleep(10000 * time.Millisecond)
-		fmt.Println(apiData.FileHashList)
+		//fmt.Println(apiData.FileHashList)
 	}
 }
 
