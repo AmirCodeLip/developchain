@@ -12,7 +12,6 @@ services:
     tty: true
     volumes:
       - ./l1chain/data:/data
-      - ./l1chain/data/passwordfile:/passwordfile
     command:
       - --http
       - --http.addr=0.0.0.0
@@ -27,7 +26,7 @@ services:
       - --ws
       - --ws.api=eth,net,web3
       - --ws.port=3334
-      - --password=/passwordfile
+      - --password=/data/passwordfile
       - --miner.etherbase=0x039cC1E608f481a8349f8a4c7B4DfCAbc2b453b9
 
   node1_ipfs:
