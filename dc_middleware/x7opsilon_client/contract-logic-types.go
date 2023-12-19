@@ -9,3 +9,9 @@ type ContractLogicData struct {
 	abi    abi.ABI
 	client *ethclient.Client
 }
+
+type FileUploaded struct {
+	FileID      string
+	DirectoryId string
+	FileHash    string
+}

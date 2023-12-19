@@ -3,6 +3,7 @@ package ipfs_connector
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"mime/multipart"
 	"net/http"
@@ -20,11 +21,12 @@ func NewRpc(url string) RpcConnector {
 
 func (rpcConnectorData *RpcConnectorData) Pin(id string) {
 	response, _ := http.NewRequest("post", rpcConnectorData.url+"pin/add?arg="+id, nil)
-	bytesBody, bytesBodyErr := io.ReadAll(response.Body)
+	_, bytesBodyErr := io.ReadAll(response.Body)
 	if bytesBodyErr != nil {
 		panic(bytesBodyErr)
 	}
-	print(string(bytesBody))
+	fmt.Println("file is pinned with hash %s", id)
+	//print(string(bytesBody))
 }
 
 func (rpcConnectorData *RpcConnectorData) Add(fileHeader *multipart.FileHeader, pin bool) *AddResult {

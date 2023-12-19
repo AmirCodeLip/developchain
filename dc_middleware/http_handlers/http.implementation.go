@@ -4,7 +4,6 @@ import (
 	"dc_middleware/ipfs_connector"
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 )
 
@@ -37,16 +36,6 @@ func (hd *HandlerData) Upload() func(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("file with hash %s is add", data.Hash)
 			b, _ := json.Marshal(data)
 			fmt.Fprintf(w, "%s", string(b))
-		}
-	}
-}
-
-func (hd *HandlerData) Pin() func(w http.ResponseWriter, r *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
-
-		if isMultipartJson(r.Header) {
-			strData, _ := io.ReadAll(r.Body)
-			fmt.Println(string(strData))
 		}
 	}
 }
