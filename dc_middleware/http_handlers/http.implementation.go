@@ -19,6 +19,7 @@ func isMultipartJson(header http.Header) bool {
 
 func GetHandlers(connector ipfs_connector.RpcConnector) (Handler, *HandlerData) {
 	var fileHashList []string
+	fileHashList = append(fileHashList, "QmVj5FzT7mXTY5Vd7VdY1L3rQ4YhKvmGG4hG5bWVp2anRS")
 	data := HandlerData{connector, fileHashList}
 	var handler Handler
 	handler = &data

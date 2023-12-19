@@ -20,12 +20,23 @@ func NewRpc(url string) RpcConnector {
 }
 
 func (rpcConnectorData *RpcConnectorData) Pin(id string) {
-	response, _ := http.NewRequest("post", rpcConnectorData.url+"pin/add?arg="+id, nil)
-	_, bytesBodyErr := io.ReadAll(response.Body)
-	if bytesBodyErr != nil {
-		panic(bytesBodyErr)
+	req, error := http.NewRequest("post", rpcConnectorData.url+"pin/add?arg="+id, nil)
+	if error != nil {
+		panic(error)
 	}
-	fmt.Println("file is pinned with hash %s", id)
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+	//_, bytesBodyErr := io.ReadAll(response.Body)
+	//if bytesBodyErr != nil {
+	//	panic(bytesBodyErr)
+	//}
+	if resp != nil {
+		fmt.Println("file is pinned with hash %s", id)
+	}
 	//print(string(bytesBody))
 }
 

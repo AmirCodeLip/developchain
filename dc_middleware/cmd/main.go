@@ -19,19 +19,17 @@ func checkFileUpload(apiData *http_handlers.HandlerData) {
 	for {
 		time.Sleep(10000 * time.Millisecond)
 		blockNumber, eventResults := contractLogic.GetUploadedFiles(lastBlock)
-		if blockNumber != 0 {
+		if blockNumber != 0 && eventResults != nil {
 			lastBlock = new(big.Int).SetUint64(blockNumber)
 			for _, eventResult := range eventResults {
-				existFile := false
-				for _, fileHash := range apiData.FileHashList {
+				for hashIndex, fileHash := range apiData.FileHashList {
 					if fileHash == eventResult.FileHash {
-						existFile = true
+						apiData.Connector.Pin(eventResult.FileHash)
+						apiData.FileHashList[hashIndex] = ""
 						break
 					}
 				}
-				if existFile {
-					apiData.Connector.Pin(eventResult.FileHash)
-				}
+
 			}
 			fmt.Println("last block is %s", lastBlock)
 		}
