@@ -10,29 +10,31 @@ import (
 	"log"
 	"math/big"
 	"net/http"
+	"time"
 )
 
 func checkFileUpload(apiData *http_handlers.HandlerData) {
 	contractLogic := x7opsilon_client.NewContractLogic("http://168.119.58.0:8545")
 	var lastBlock *big.Int = nil
-	//for {
-	//	time.Sleep(10000 * time.Millisecond)
-	blockNumber, eventResults := contractLogic.GetUploadedFiles(lastBlock)
-	if blockNumber != 0 {
-		lastBlock = new(big.Int).SetUint64(blockNumber)
-		for _, eventResult := range eventResults {
-			existFile := false
-			for _, fileHash := range apiData.FileHashList {
-				if fileHash == eventResult.FileHash {
-					existFile = true
-					break
+	for {
+		time.Sleep(10000 * time.Millisecond)
+		blockNumber, eventResults := contractLogic.GetUploadedFiles(lastBlock)
+		if blockNumber != 0 {
+			lastBlock = new(big.Int).SetUint64(blockNumber)
+			for _, eventResult := range eventResults {
+				existFile := false
+				for _, fileHash := range apiData.FileHashList {
+					if fileHash == eventResult.FileHash {
+						existFile = true
+						break
+					}
+				}
+				if existFile {
+					apiData.Connector.Pin(eventResult.FileHash)
 				}
 			}
-			if existFile {
-				apiData.Connector.Pin(eventResult.FileHash)
-			}
+			fmt.Println("last block is %s", lastBlock)
 		}
-		fmt.Println("last block is %s", lastBlock)
 	}
 }
 

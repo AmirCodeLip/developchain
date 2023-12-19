@@ -30,7 +30,7 @@ func (hd *HandlerData) Upload() func(w http.ResponseWriter, r *http.Request) {
 		if isMultipartFormData(r.Header) {
 			r.ParseMultipartForm(0)
 			file := r.MultipartForm.File["file"][0]
-			data := hd.connector.Add(file, false)
+			data := hd.Connector.Add(file, false)
 			hd.FileHashList = append(hd.FileHashList, data.Hash)
 			fmt.Println(hd.FileHashList)
 			fmt.Println("file with hash %s is add", data.Hash)
